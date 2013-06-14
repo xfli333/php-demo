@@ -14,7 +14,7 @@ class DriverView
      * 供子类通 过model对象获取数据
      */
 
-    function __construct(&$model)
+    function __construct($model)
     {
         $this->model = $model;
     }
@@ -29,9 +29,9 @@ class DriverView
 //显示所有留言 的子类
 class listView extends DriverView
 {
-    function __construct(&$model)
+    function __construct($model)
     {
-        parent::__construct(&$model); //继承父类的构造函数（详见Controller）
+        parent::__construct($model); //继承父类的构造函数（详见Controller）
         $this->model->listNote();
         //逐行获取数据
         while ($note = $this->model->getNote()) {
@@ -45,9 +45,9 @@ class listView extends DriverView
 //发表留言的子类
 class postView extends DriverView
 {
-    function __construct(&$model, $post)
+    function __construct($model, $post)
     {
-        parent::__construct(&$model);
+        parent::__construct($model);
         $this->model->postNote($post[name], $post[content]);
         $this->output = "Note Post OK!<br><a href=\"" . $_SERVER['PHP_SELF'] . "?action=list\">查看</a>";
     }
@@ -56,9 +56,9 @@ class postView extends DriverView
 //删除留言的子类
 class deleteView extends DriverView
 {
-    function __construct(&$model, $id)
+    function __construct($model, $id)
     {
-        parent::__construct(&$model);
+        parent::__construct($model);
         $this->model->deleteNote($id);
         $this->output = "Note Delete OK!<br><a href=\"" . $_SERVER['PHP_SELF'] . "?action=list\">查看</a>";
     }
