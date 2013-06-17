@@ -27,7 +27,7 @@ class Driver
 
     function postNote($code,$name, $address)
     { //插入一条新留言
-        $sql = "INSERT INTO DRIVER ('CODE','NAME','ADDRESS') VALUES ('$$code', '$name', '$address');";
+        $sql = "INSERT INTO DRIVER VALUES ('$code', '$name', '$address');";
         //echo $sql; //对于较复杂的合成SQL语句，<br />
         //调试时用echo输出一下看看是否正确是一种常用的调试技巧
         $this->dao->fetch($sql);

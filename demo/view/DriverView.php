@@ -34,10 +34,24 @@ class listView extends DriverView
         parent::__construct($model); //继承父类的构造函数（详见Controller）
         $this->model->listNote();
         //逐行获取数据
+        $this->output .="<table class=\"table table-striped table-bordered table-condensed\">";
+        $this->output .="<thead>
+								<tr>
+									<th>Code</th>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Action</th>
+								</tr>
+							</thead>";
         while ($note = $this->model->getNote()) {
-            $this->output .= "code：" . $note["CODE"] . "<br> name:" . $note["NAME"] . " <br> address：" . $note["ADDRESS"] . "
- <a href=\"" . $_SERVER['PHP_SELF'] . "?action=delete&code=". $note["CODE"] ."\">删除</a><br> <hr />";
+            $this->output .="<tr>";
+            $this->output .="<td>". $note["CODE"]."</td>";
+            $this->output .="<td>". $note["NAME"]."</td>";
+            $this->output .="<td>". $note["ADDRESS"]."</td>";
+            $this->output .="<td>". "<a href=\"" . $_SERVER['PHP_SELF'] . "?action=delete&code=". $note["CODE"] ."\">删除</a></td>";
+            $this->output .="</tr>";
         }
+        $this->output ."</table>";
     }
 }
 
@@ -48,8 +62,8 @@ class postView extends DriverView
     function __construct($model, $post)
     {
         parent::__construct($model);
-        $this->model->postNote($post[name], $post[content]);
-        $this->output = "Note Post OK!<br><a href=\"" . $_SERVER['PHP_SELF'] . "?action=list\">查看</a>";
+        $this->model->postNote($post[code], $post[name], $post[address]);
+        $this->output = "Note Post OK!<br><a href=\"driver.php?action=list\">查看</a>"."  ==  " .$post[code]."-" . $post[name]."-" . $post[address];
     }
 }
 
